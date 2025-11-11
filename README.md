@@ -54,9 +54,8 @@ An automated trading system that uses AI (DeepSeek/GPT/Claude) to make trading d
 - ✅ Performance metrics (Sharpe ratio, max drawdown, win rate)
 
 ### Testing
-- ✅ **Automated test suite** (21 tests, 90% pass rate)
-- ✅ Mock trading (no API calls needed)
-- ✅ Integration tests for all brokers
+- ✅ Backtesting framework (test strategies before live trading)
+- ✅ Paper trading support (real markets, fake money)
 
 ---
 
@@ -99,10 +98,7 @@ ALPACA_SECRET_KEY=your_secret
 ### 4. Test It
 
 ```bash
-# Run automated tests
-python tests/test_automated.py
-
-# Run backtests
+# Run backtests (test strategies on historical data)
 python tests/test_backtesting.py
 ```
 
@@ -251,36 +247,17 @@ print(f"Sharpe: {result['metrics']['sharpe_ratio']:.2f}")
 
 ## 🧪 Testing
 
-### Automated Test Suite
+### Testing Options
 
 ```bash
-# Run all tests (21 tests)
-python tests/test_automated.py
-```
-
-**Tests:**
-- ✅ Broker connection
-- ✅ Market data access
-- ✅ Trade execution
-- ✅ Risk management
-- ✅ Portfolio tracking
-- ✅ AI decision simulation
-- ✅ Trading cycles
-- ✅ Stress testing
-
-**Pass rate:** 90.5% (19/21 tests)
-
-### Manual Testing
-
-```bash
-# Test specific broker
-python -c "from src.brokers import BrokerFactory; ..."
-
-# Test backtesting
+# Test backtesting framework
 python tests/test_backtesting.py
 
 # Test news APIs
 python src/collectors/news_api_free.py
+
+# Test broker connection
+python -c "from src.brokers import BrokerFactory; from config.config import Config; broker = BrokerFactory.create(Config.BROKER, Config.BINANCE_API_KEY, Config.BINANCE_SECRET_KEY); print('✅ Connected')"
 ```
 
 ---
@@ -430,7 +407,6 @@ MarketMind-AI/
 │   │   ├── base_broker.py     # Abstract interface
 │   │   ├── alpaca_broker.py   # Stocks
 │   │   ├── binance_broker.py  # Crypto
-│   │   ├── mock_broker.py     # Testing
 │   │   └── broker_factory.py  # Dynamic creation
 │   ├── collectors/
 │   │   ├── data_collector.py  # Market data
@@ -448,7 +424,6 @@ MarketMind-AI/
 │   └── utils/
 │       └── logger.py          # Logging
 ├── tests/
-│   ├── test_automated.py      # Automated tests
 │   └── test_backtesting.py    # Backtest tests
 ├── examples/
 │   └── simple_backtest.py     # Example usage
@@ -477,11 +452,11 @@ MarketMind-AI/
 ## 🎯 Next Steps
 
 1. ✅ **Setup broker** (Binance or Alpaca)
-2. ✅ **Add news API** (Finnhub recommended)
-3. ✅ **Run tests** (`python tests/test_automated.py`)
+2. ✅ **Add AI API key** (DeepSeek/OpenAI/Claude)
+3. ✅ **Add news API** (Finnhub recommended)
 4. ✅ **Run backtests** (`python tests/test_backtesting.py`)
-5. → **Paper trade** (real markets, fake money)
-6. → **Optimize** (based on results)
+5. → **Paper trade** (real markets, fake money - `python main.py`)
+6. → **Monitor & optimize** (based on results)
 7. → **Live trade** (small capital, monitor closely)
 
 ---
